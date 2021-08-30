@@ -13,12 +13,11 @@
     <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
       <div class="location-box">
         <div class="location text-white text-center text-4xl font-normal">{{ weather.name }}, {{ weather.sys.country }}</div>
-        <div class="date text-white text-center text-xl italic">Monday 20 January 2021</div>
       </div>
       
       <div class="weather-box text-center text-white">
-        <div class="temp inline-block text-7xl rounded-2xl my-9">9°c</div>
-        <div class="weather text-4xl">Rain</div>
+        <div class="temp inline-block text-7xl rounded-2xl my-9"> {{ Math.round(weather.main.temp) }} °c</div>
+        <div class="weather text-4xl"> {{ weather.weather[0].main }} </div>
       </div>  
     </div>
   </main>
@@ -71,6 +70,10 @@ body {
   background-size: cover;
   background-position: bottom;
   transition: 0.5s;
+}
+
+#app.warm {
+  background-image: url('./assets/warm-bg.jpg');
 }
 
 main {
