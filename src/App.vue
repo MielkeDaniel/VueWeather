@@ -16,7 +16,7 @@
       </div>
       
       <div class="weather-box text-center text-white">
-        <div class="temp inline-block text-7xl rounded-2xl my-9"> {{ Math.round(weather.main.temp) }} °c</div>
+        <div class="temp inline-block text-7xl rounded-2xl my-12"> {{ Math.round(weather.main.temp) }}°c</div>
         <div class="weather text-4xl"> {{ weather.weather[0].main }} </div>
       </div>  
     </div>
@@ -45,8 +45,10 @@ export default {
           .then(res => {
             return res.json();
           }).then(this.setResults);
+      this.query = '';
       }
     },
+    
     setResults (results) {
       this.weather = results;
     }
@@ -70,10 +72,6 @@ body {
   background-size: cover;
   background-position: bottom;
   transition: 0.5s;
-}
-
-#app.warm {
-  background-image: url('./assets/warm-bg.jpg');
 }
 
 main {
@@ -114,7 +112,7 @@ main {
 }
 
 .weather-box .temp {
-  padding: 10px 25px;
+  padding: 25px 25px;
   font-weight: 600;
 
   text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
