@@ -10,11 +10,9 @@
       />
     </div>
 
-    {{ query }}
-
-    <div class="weather-wrap">
+    <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
       <div class="location-box">
-        <div class="location text-white text-center text-4xl font-normal">Northampton, UK</div>
+        <div class="location text-white text-center text-4xl font-normal">{{ weather.name }}, {{ weather.sys.country }}</div>
         <div class="date text-white text-center text-xl italic">Monday 20 January 2021</div>
       </div>
       
@@ -32,21 +30,26 @@
 export default {
   name: 'App',
   components: {
-
   },
   data() {
     return {
       api_key: "8a3e9e1e67daaf35b0f4a7cd460ad6cb",
-      url_base: "http://api.openweathermap.org/data/2.5/forecast?",
+      url_base: "http://api.openweathermap.org/data/2.5/",
       query: '',
       weather: {}
     }
   },
   methods: {
     fetchWeather(e) {
-      if(e.api_key == 'Enter') {
-        fetch(`${this.weather}weather?q=${this.query}&units`)
+      if(e.key == 'Enter') {
+        fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+          .then(res => {
+            return res.json();
+          }).then(this.setResults);
       }
+    },
+    setResults (results) {
+      this.weather = results;
     }
   }
 }
