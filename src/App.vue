@@ -1,26 +1,125 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <main>
+    <div class="search-box">
+      <input 
+      type="text" 
+      class="search-bar" 
+      placeholder="Search..."
+      v-model="query"
+      @keypress="fetchWeather"
+      />
+    </div>
+
+    {{ query }}
+
+    <div class="weather-wrap">
+      <div class="location-box">
+        <div class="location text-white text-center text-4xl font-normal">Northampton, UK</div>
+        <div class="date text-white text-center text-xl italic">Monday 20 January 2021</div>
+      </div>
+      
+      <div class="weather-box text-center text-white">
+        <div class="temp inline-block text-7xl rounded-2xl my-9">9°c</div>
+        <div class="weather text-4xl">Rain</div>
+      </div>  
+    </div>
+  </main>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+
+  },
+  data() {
+    return {
+      api_key: "8a3e9e1e67daaf35b0f4a7cd460ad6cb",
+      url_base: "http://api.openweathermap.org/data/2.5/forecast?",
+      query: '',
+      weather: {}
+    }
+  },
+  methods: {
+    fetchWeather(e) {
+      if(e.api_key == 'Enter') {
+        fetch(`${this.weather}weather?q=${this.query}&units`)
+      }
+    }
   }
 }
 </script>
 
 <style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  background-image: url('./assets/cold-bg.jpg');
+  background-size: cover;
+  background-position: bottom;
+  transition: 0.5s;
+}
+
+main {
+  min-height: 100vh;
+  padding: 25px;
+
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.75));
+}
+
+.search-box {
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.search-box .search-bar {
+  display: block;
+  width: 100%;
+  padding: 15px;
+
+  color: 313131;
+  font-size: 20px;
+
+  appearance: none;
+  border: none;
+  outline: none;
+  background: none;
+
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 0px 16px 0px 16px;
+  transition: 0.5s;
+}
+
+.search-box .search-bar:focus {
+  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.25);
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px 0px 18px 0px;
+}
+
+.weather-box .temp {
+  padding: 10px 25px;
+  font-weight: 600;
+
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 16px;
+
+  box-shadow: 3px 4px rgba(0, 0, 0, 0.25)
+} 
+
+.weather-box .weather {
+  font-weight: 600;
+  text-shadow: 3px 6px rgba(0, 0, 0, 0.25);
 }
 </style>
